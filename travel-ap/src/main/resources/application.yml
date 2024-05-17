@@ -1,0 +1,54 @@
+#Line bot配置
+line.bot:
+  channel-token: x
+  channel-secret: x
+  handler.path: /callback
+#RabbitMQ配置
+spring:
+  main:
+    allow-circular-references: true
+  rabbitmq:
+#    host: lspoc.testritegroup.com
+#    port: 5672
+    addresses: lspoc.testritegroup.com:5672,lspoc.testritegroup.com:5673
+    username: admin
+    password: Aa123456
+    virtual-host: /
+    mode: cluster
+    publisher-confirm-type: correlated
+    publisher-returns: true
+    listener:
+      simple:
+        acknowledge-mode: manual
+        retry:
+          enabled: true
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/travel
+    username: postgres
+    password: Aa123456
+
+mybatis:
+  mapper-locations: classpath*:com/example/demo/db/mapper/*.xml
+  type-aliases-package: com.example.demo.db.modle
+
+keycloak:
+  auth-server-url: https://authempsit02.testritegroup.com/auth
+  realm: testritegroup-employee
+  resource: tr-eip-backend
+  ssl-required: external
+  public-client: true
+  cors: true
+  bearer-only: true
+  securityConstraints:
+    - authRoles: ROLE_SYSTEM
+      securityCollections:
+        - patterns:
+            - /*
+    - authRoles: ROLE_EMPLOYEE
+      securityCollections:
+        - patterns:
+            - /*
+    # exclude
+    - securityCollections:
+        - patterns:
+            - /system/healthck
