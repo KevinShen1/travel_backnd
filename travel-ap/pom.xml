@@ -44,16 +44,16 @@
             <artifactId>postgresql</artifactId>
         </dependency>
 
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-spring-boot-starter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.keycloak</groupId>-->
+<!--            <artifactId>keycloak-spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.keycloak/keycloak-spring-boot-adapter -->
-        <dependency>
-            <groupId>org.keycloak</groupId>
-            <artifactId>keycloak-spring-boot-adapter</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.keycloak</groupId>-->
+<!--            <artifactId>keycloak-spring-boot-adapter</artifactId>-->
+<!--        </dependency>-->
 
         <!-- https://mvnrepository.com/artifact/org.springframework/spring-aspects -->
         <dependency>
@@ -111,13 +111,13 @@
 
     <dependencyManagement>
         <dependencies>
-            <dependency>
-                <groupId>org.keycloak.bom</groupId>
-                <artifactId>keycloak-adapter-bom</artifactId>
-                <version>${keycloak-version}</version>
-                <type>pom</type>
-                <scope>import</scope>
-            </dependency>
+<!--            <dependency>-->
+<!--                <groupId>org.keycloak.bom</groupId>-->
+<!--                <artifactId>keycloak-adapter-bom</artifactId>-->
+<!--                <version>${keycloak-version}</version>-->
+<!--                <type>pom</type>-->
+<!--                <scope>import</scope>-->
+<!--            </dependency>-->
             <!-- https://mvnrepository.com/artifact/org.mybatis.spring.boot/mybatis-spring-boot-starter -->
             <dependency>
                 <groupId>org.mybatis.spring.boot</groupId>

@@ -31,24 +31,3 @@ mybatis:
   mapper-locations: classpath*:com/example/demo/db/mapper/*.xml
   type-aliases-package: com.example.demo.db.modle
 
-keycloak:
-  auth-server-url: https://authempsit02.testritegroup.com/auth
-  realm: testritegroup-employee
-  resource: tr-eip-backend
-  ssl-required: external
-  public-client: true
-  cors: true
-  bearer-only: true
-  securityConstraints:
-    - authRoles: ROLE_SYSTEM
-      securityCollections:
-        - patterns:
-            - /*
-    - authRoles: ROLE_EMPLOYEE
-      securityCollections:
-        - patterns:
-            - /*
-    # exclude
-    - securityCollections:
-        - patterns:
-            - /system/healthck
