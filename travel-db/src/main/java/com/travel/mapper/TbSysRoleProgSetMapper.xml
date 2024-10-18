@@ -1,0 +1,228 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.travel.mapper.TbSysRoleProgSetMapper" >
+  <resultMap id="BaseResultMap" type="com.travel.model.TbSysRoleProgSet" >
+    <id column="role_id" property="roleId" jdbcType="VARCHAR" />
+    <id column="prog_id" property="progId" jdbcType="VARCHAR" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+    <result column="create_datetime" property="createDatetime" jdbcType="TIMESTAMP" />
+    <result column="update_user" property="updateUser" jdbcType="VARCHAR" />
+    <result column="update_datetime" property="updateDatetime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    "role_id", "prog_id", "create_user", "create_datetime", "update_user", "update_datetime"
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.travel.model.TbSysRoleProgSetExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from "public"."tb_sys_role_prog_set"
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.travel.model.TbSysRoleProgSetKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from "public"."tb_sys_role_prog_set"
+    where "role_id" = #{roleId,jdbcType=VARCHAR}
+      and "prog_id" = #{progId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.travel.model.TbSysRoleProgSetKey" >
+    delete from "public"."tb_sys_role_prog_set"
+    where "role_id" = #{roleId,jdbcType=VARCHAR}
+      and "prog_id" = #{progId,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.travel.model.TbSysRoleProgSetExample" >
+    delete from "public"."tb_sys_role_prog_set"
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.travel.model.TbSysRoleProgSet" >
+    insert into "public"."tb_sys_role_prog_set" ("role_id", "prog_id", "create_user", 
+      "create_datetime", "update_user", "update_datetime"
+      )
+    values (#{roleId,jdbcType=VARCHAR}, #{progId,jdbcType=VARCHAR}, #{createUser,jdbcType=VARCHAR}, 
+      #{createDatetime,jdbcType=TIMESTAMP}, #{updateUser,jdbcType=VARCHAR}, #{updateDatetime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.travel.model.TbSysRoleProgSet" >
+    insert into "public"."tb_sys_role_prog_set"
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        "role_id",
+      </if>
+      <if test="progId != null" >
+        "prog_id",
+      </if>
+      <if test="createUser != null" >
+        "create_user",
+      </if>
+      <if test="createDatetime != null" >
+        "create_datetime",
+      </if>
+      <if test="updateUser != null" >
+        "update_user",
+      </if>
+      <if test="updateDatetime != null" >
+        "update_datetime",
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="roleId != null" >
+        #{roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="progId != null" >
+        #{progId,jdbcType=VARCHAR},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.travel.model.TbSysRoleProgSetExample" resultType="java.lang.Integer" >
+    select count(*) from "public"."tb_sys_role_prog_set"
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update "public"."tb_sys_role_prog_set"
+    <set >
+      <if test="record.roleId != null" >
+        "role_id" = #{record.roleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.progId != null" >
+        "prog_id" = #{record.progId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createUser != null" >
+        "create_user" = #{record.createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.createDatetime != null" >
+        "create_datetime" = #{record.createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.updateUser != null" >
+        "update_user" = #{record.updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updateDatetime != null" >
+        "update_datetime" = #{record.updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update "public"."tb_sys_role_prog_set"
+    set "role_id" = #{record.roleId,jdbcType=VARCHAR},
+      "prog_id" = #{record.progId,jdbcType=VARCHAR},
+      "create_user" = #{record.createUser,jdbcType=VARCHAR},
+      "create_datetime" = #{record.createDatetime,jdbcType=TIMESTAMP},
+      "update_user" = #{record.updateUser,jdbcType=VARCHAR},
+      "update_datetime" = #{record.updateDatetime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.travel.model.TbSysRoleProgSet" >
+    update "public"."tb_sys_role_prog_set"
+    <set >
+      <if test="createUser != null" >
+        "create_user" = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="createDatetime != null" >
+        "create_datetime" = #{createDatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updateUser != null" >
+        "update_user" = #{updateUser,jdbcType=VARCHAR},
+      </if>
+      <if test="updateDatetime != null" >
+        "update_datetime" = #{updateDatetime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where "role_id" = #{roleId,jdbcType=VARCHAR}
+      and "prog_id" = #{progId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.travel.model.TbSysRoleProgSet" >
+    update "public"."tb_sys_role_prog_set"
+    set "create_user" = #{createUser,jdbcType=VARCHAR},
+      "create_datetime" = #{createDatetime,jdbcType=TIMESTAMP},
+      "update_user" = #{updateUser,jdbcType=VARCHAR},
+      "update_datetime" = #{updateDatetime,jdbcType=TIMESTAMP}
+    where "role_id" = #{roleId,jdbcType=VARCHAR}
+      and "prog_id" = #{progId,jdbcType=VARCHAR}
+  </update>
+</mapper>

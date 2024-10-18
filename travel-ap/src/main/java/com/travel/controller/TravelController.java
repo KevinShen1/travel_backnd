@@ -13,7 +13,6 @@ public class TravelController {
     private TravelService travelService;
 
     @PostMapping("/getTravelShareMst")
-    @CrossOrigin("*")
     public ResponseVo getTravelShareMst(@RequestBody String userId) {
         ResponseVo responseVo = new ResponseVo();
         try {

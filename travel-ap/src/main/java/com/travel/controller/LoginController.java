@@ -5,6 +5,8 @@ import com.travel.model.TbSysUser;
 import com.travel.model.VwUserAuthRoles;
 import com.travel.service.LoginService;
 import com.travel.vo.ResponseVo;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,6 +18,8 @@ import java.util.Map;
 @RequestMapping("/api")
 public class LoginController {
 
+    private final Logger logger = LoggerFactory.getLogger(this.getClass().getName());
+
     @Autowired
     private LoginService loginService;
 
@@ -23,7 +27,6 @@ public class LoginController {
     private VwUserAuthRolesMapper vwUserAuthRolesMapper;
 
     @PostMapping("/getUserAuth")
-    @CrossOrigin("*")
     public ResponseVo getUserAuth(@RequestBody VwUserAuthRoles obj) {
 
         ResponseVo responseVo = new ResponseVo();
@@ -42,19 +45,21 @@ public class LoginController {
 
             VwUserAuthRoles vwUserAuthRoles = loginService.getUserAuthByUserId(obj.getUserId());
 
+
             resultMap.put("userInfo", vwUserAuthRoles);
+            resultMap.put("funcAuth", loginService.getUserProgAuth(obj.getUserId(), "root"));
             responseVo.setStatus(true);
             responseVo.setData(resultMap);
 
 
         }catch (Exception e) {
-            e.printStackTrace();
+            responseVo.setStatus(false);
+            logger.error(e.getMessage());
         }
         return responseVo;
     }
 
     @PostMapping("/getUserAuthByUserId")
-    @CrossOrigin("*")
     public ResponseVo getUserAuthByUserId(@RequestBody String userId) {
         ResponseVo responseVo = new ResponseVo();
         try{
@@ -62,12 +67,18 @@ public class LoginController {
 
 
             VwUserAuthRoles vwUserAuthRoles = loginService.getUserAuthByUserId(userId);
-            resultMap.put("userInfo", vwUserAuthRoles);
-            responseVo.setStatus(true);
-            responseVo.setData(resultMap);
+            if(vwUserAuthRoles == null) {
+                responseVo.setStatus(false);
+            }else {
+                resultMap.put("userInfo", vwUserAuthRoles);
+                resultMap.put("funcAuth", loginService.getUserProgAuth(userId, "root"));
+                responseVo.setStatus(true);
+                responseVo.setData(resultMap);
+            }
 
         }catch (Exception e) {
-            e.getMessage();
+            responseVo.setStatus(false);
+            logger.error(e.getMessage());
         }
         return responseVo;
     }

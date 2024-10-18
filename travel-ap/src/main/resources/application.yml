@@ -5,6 +5,10 @@ line.bot:
   handler.path: /callback
 #RabbitMQ配置
 spring:
+  application:
+    name: travel-ap
+  profiles:
+    active: DEV
   main:
     allow-circular-references: true
   rabbitmq:
@@ -26,8 +30,59 @@ spring:
     url: jdbc:postgresql://127.0.0.1:5432/travel
     username: postgres
     password: Aa123456
+    driver-class-name: org.postgresql.Driver
+    hikari:
+      connectionTimeout: 30000
+      idle-timeout: 60000
+      max-lifetime: 1200000
+      maximum-pool-size: 30
+  mail:
+    host: 172.17.120.159
+    port: 25
+    properties:
+      mail:
+        smtp:
+          auth: false
+    username: tems@testritegroup.com
+    default-encoding: UTF-8
+    protocol: smtp
 
-mybatis:
-  mapper-locations: classpath*:com/example/demo/db/mapper/*.xml
-  type-aliases-package: com.example.demo.db.modle
+  servlet:
+    multipart:
+      max-file-size: 5MB
+      max-request-size: 50MB
+
+server:
+  servlet:
+    context-path: /
+  port: 2080
+
+#mybatis:
+#  mapper-locations: classpath*:com/example/demo/db/mapper/*.xml
+#  type-aliases-package: com.example.demo.db.modle
+
+########################################################
+### KeyCloak 配置
+########################################################
+keycloak:
+  auth-server-url: https://authempsit02.testritegroup.com/auth
+  realm: testritegroup-employee
+  resource: tems-backend
+  ssl-required: external
+  public-client: true
+  cors: true
+  bearer-only: true
+  securityConstraints:
+    - authRoles: ROLE_SYSTEM
+      securityCollections:
+        - patterns:
+            - /*
+    - authRoles: ROLE_EMPLOYEE
+      securityCollections:
+        - patterns:
+            - /*
+    # exclude
+    - securityCollections:
+        - patterns:
+            - /api/common/getFileDownload
 
